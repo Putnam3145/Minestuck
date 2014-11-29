@@ -13,6 +13,12 @@ public class LandAspectSand extends LandAspect
 	BlockWithMetadata[] surfaceBlocks = {new BlockWithMetadata(Blocks.sand)};
 	static Vec3 skyColor = Vec3.createVectorHelper(0.99D, 0.8D, 0.05D);
 	
+	public LandAspectSand()
+	{
+		
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.DAY_CYCLE, 0, 1));
+	}
+	
 	@Override
 	public BlockWithMetadata[] getSurfaceBlocks() 
 	{
@@ -57,15 +63,11 @@ public class LandAspectSand extends LandAspect
 //		list.add(new DecoratorVein(Block.ice, 5, 8));
 		return list;
 	}
-
-	@Override
-	public int getDayCycleMode() {
-		return 0;
-	}
-
+	
 	@Override
 	public Vec3 getFogColor() 
 	{
 		return skyColor;
 	}
+	
 }

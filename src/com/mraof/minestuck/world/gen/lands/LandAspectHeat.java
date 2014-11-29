@@ -12,7 +12,15 @@ public class LandAspectHeat extends LandAspect
 	BlockWithMetadata[] upperBlocks = {new BlockWithMetadata(Blocks.netherrack), new BlockWithMetadata(Blocks.obsidian)};
 	BlockWithMetadata[] surfaceBlocks = {new BlockWithMetadata(Blocks.soul_sand), new BlockWithMetadata(Blocks.cobblestone)};
 	static Vec3 skyColor = Vec3.createVectorHelper(0.0D, 0.0D, 0.0D);
-
+	
+	public LandAspectHeat()
+	{
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.SURFACE_BLOCK, new BlockWithMetadata(Blocks.soul_sand), 3));
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.SURFACE_BLOCK, new BlockWithMetadata(Blocks.cobblestone), 3));
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.GROUND_BLOCK, new BlockWithMetadata(Blocks.netherrack), 3));
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.GROUND_BLOCK, new BlockWithMetadata(Blocks.obsidian), 3));
+	}
+	
 	@Override
 	public BlockWithMetadata[] getSurfaceBlocks() 
 	{
@@ -63,15 +71,16 @@ public class LandAspectHeat extends LandAspect
 		list.add(new DecoratorVein(Blocks.glowstone, 5, 8));
 		return list;
 	}
-
-	@Override
-	public int getDayCycleMode() {
-		return (new Random()).nextInt(3); //Random cycle between 0 and 2
-	}
-
+	
 	@Override
 	public Vec3 getFogColor() 
 	{
 		return skyColor;
+	}
+	
+	@Override
+	public boolean canBeCombinedWith(LandAspect otherAspect)
+	{
+		return super.canBeCombinedWith(otherAspect) && !otherAspect.getPrimaryName().equals("Frost");
 	}
 }

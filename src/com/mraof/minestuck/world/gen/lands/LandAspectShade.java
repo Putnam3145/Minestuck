@@ -15,6 +15,12 @@ public class LandAspectShade extends LandAspect
 	BlockWithMetadata[] upperBlocks = {new BlockWithMetadata(Blocks.stone)};
 	static Vec3 skyColor = Vec3.createVectorHelper(0.16D, 0.38D, 0.54D);
 	
+	public LandAspectShade()
+	{
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.SURFACE_BLOCK, new BlockWithMetadata(Minestuck.coloredDirt, (byte) 0), 4));
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.DAY_CYCLE, 2, 5));
+	}
+	
 	@Override
 	public BlockWithMetadata[] getSurfaceBlocks() {
 		return surfaceBlocks;
@@ -58,17 +64,24 @@ public class LandAspectShade extends LandAspect
 //		list.add(new DecoratorVein(Block.ice, 5, 8));
 		return list;
 	}
-
-	@Override
-	public int getDayCycleMode() {
-		return 2;
-	}
-
+	
 	@Override
 	public Vec3 getFogColor() 
 	{
 		return skyColor;
 	}
-
-
+	
+	@Override
+	public boolean canBeCombinedWith(LandAspect otherAspect)
+	{
+		if(super.canBeCombinedWith(otherAspect))
+		{
+			for(LandAttribute attribute : otherAspect.attributes)
+				if(attribute.type == LandAttribute.EnumAttribute.DAY_CYCLE)
+					return !(((Integer)attribute.value) == 1 && attribute.priority >= 3);
+			return true;
+		}
+		else return false;
+	}
+	
 }

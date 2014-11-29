@@ -8,6 +8,24 @@ import net.minecraft.util.Vec3;
 
 public abstract class LandAspect 
 {
+	
+	protected ArrayList<LandAttribute> attributes = new ArrayList<LandAttribute>();
+	
+	public ArrayList<LandAttribute> getAttributes()
+	{
+		return (ArrayList<LandAttribute>) attributes.clone();
+	}
+	
+	public boolean canBeCombinedWith(LandAspect otherAspect)
+	{
+		for(LandAttribute attribute : attributes)
+			if(!attribute.type.multiValued && attribute.priority == 5)
+				for(LandAttribute attribute1 : otherAspect.attributes)
+					if(attribute1.type == attribute.type && attribute1.priority == 5)
+						return false;
+		return true;
+	}
+	
 		/**
 		 * Returns the blocks that can possibly be use in the land's underground blocks.
 		 * @return
@@ -65,14 +83,5 @@ public abstract class LandAspect
 		 */
 		public abstract ArrayList<ILandDecorator> getDecorators();
 		
-		/**
-		 *  Returns a integer representing how they land's day cycle will proceed.
-		 *  
-		 *  0 = Normal day cycle;
-		 *  1 = Always day;
-		 *  2 = Always night.
-		 */
-		public abstract int getDayCycleMode();
-
 		public abstract Vec3 getFogColor();
 }

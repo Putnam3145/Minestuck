@@ -14,6 +14,12 @@ public class LandAspectPulse extends LandAspect
 	BlockWithMetadata[] surfaceBlocks = {new BlockWithMetadata(Blocks.obsidian)};
 	static Vec3 skyColor = Vec3.createVectorHelper(0.36D, 0.01D, 0.01D);
 	
+	public LandAspectPulse()
+	{
+		
+		attributes.add(new LandAttribute(LandAttribute.EnumAttribute.DAY_CYCLE, 0, 3));
+	}
+	
 	@Override
 	public BlockWithMetadata[] getSurfaceBlocks() 
 	{
@@ -58,15 +64,11 @@ public class LandAspectPulse extends LandAspect
 //		list.add(new DecoratorVein(Block.ice, 5, 8));
 		return list;
 	}
-
-	@Override
-	public int getDayCycleMode() {
-		return 0;
-	}
-
+	
 	@Override
 	public Vec3 getFogColor() 
 	{
 		return skyColor;
 	}
+	
 }
