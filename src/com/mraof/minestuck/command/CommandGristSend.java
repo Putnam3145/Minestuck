@@ -90,6 +90,15 @@ public class CommandGristSend extends CommandBase
 				}
 			}
 			
+			PlayerIdentifier senderIdentifier;
+			PlayerIdentifier receiverIdentifier;
+			
+			senderIdentifier = IdentifierHandler.encode(player);
+			receiverIdentifier = IdentifierHandler.encode(receivingPlayer);
+			
+			MinestuckPlayerTracker.updateGristCache(senderIdentifier);
+			MinestuckPlayerTracker.updateGristCache(receiverIdentifier);
+
 			notifyCommandListener(sender, this, "commands.gristSend.success", receiver, costStr.toString());
 			
 		} else throw new PlayerNotFoundException("Couldn't find player \"%s\".", receiver);
